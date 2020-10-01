@@ -5,27 +5,31 @@
 
 using namespace std;
 
-enum target_type { Unknown, Missile, Aircraft };
+// Перечисляемый тип с типами целей
+enum class target_type { Unknown, Missile, Aircraft };
 
+// Базовый класс цели
 class TTarget
 {
 public:
-	TTarget() {};
-	TTarget(float aX, float aY, float aVel, float ang);
-	~TTarget();
+	TTarget(); // Конструктор
+	~TTarget() {}; // Деструктор(формальный)
 
+	// Получение типа цели данного экземпляра
 	string getTargetType()
 	{
-		if (TargetType == Missile)
+		if (TargetType == target_type::Missile)
 			return "Missile";
-		else if (TargetType == Aircraft)
+		else if (TargetType == target_type::Aircraft)
 			return "Aircraft";
 		else
 			return "Unknown";
 	}
 
+	// Абстрактный метод движения, будет переобпределен в наследуемых классах
 	virtual void Move(float t) = 0;
 
+	// геттеры
 	float get_x() { return x; }
 	float get_y() { return y; }
 
@@ -35,72 +39,88 @@ protected:
 	float Time, x,y;
 };
 
-TTarget::TTarget(float aX, float aY, float aVel, float ang)
+// Базовый конструктор
+TTarget::TTarget() {
+	StartX = 0; StartY = 0; Vel = 0; Ang = 0;
+	TargetType = target_type::Unknown;
+	Time = 0; x = 0; y = 0;
+}
+
+
+// Класс самолета, наследуется от цели
+class TAircraft : public TTarget
+{
+public:
+	TAircraft(float aX, float aY, float aVel, float ang); // Конструктор
+	virtual void Move(float ti); // метод движения
+};
+
+// Конструктор. Присваевает переданные параметры соответсвующим переменным
+TAircraft::TAircraft(float aX, float aY, float aVel, float ang)
 {
 	StartX = aX;
 	StartY = aY;
 	Vel = aVel;
 	Ang = ang;
-	TargetType = Aircraft;
-	cout << "TTarget" << endl;
-}
-
-TTarget::~TTarget()
-{
+	TargetType = target_type::Aircraft;
+	// Сообщение о создании цели
+	cout << "TAircraft was created" << endl;
 }
 
 
-
-class TAircraft : public TTarget
-{
-public:
-	TAircraft(float aX, float aY, float aVel, float ang) : TTarget(aX, aY, aVel, ang) {};
-	virtual void Move(float ti);
-};
-
+// Метод движения
 void TAircraft::Move(float ti)
 {
-	Time = ti;
+	Time = ti; // Обновление времени(устанавливается текущее)
 
-	x = StartX - Vel * cos(Ang) * (ti);
-	y = StartY - Vel * sin(Ang) * (ti);
+	x = StartX - Vel * cos(Ang) * (ti); // Текущая координата X
+	y = StartY - Vel * sin(Ang) * (ti); // екущая координата Y
 }
 
+
+//Класс Ракеты, наследуется от базового класса цели
 class TMissile : public TTarget
 {
 public:
-	TMissile(float aX, float aY, float aVel, float ang, float aAccel);
-	~TMissile();
+	// Измененный конструктор( не успел разобраться с наследованием конструкторов)
+	TMissile(float aX, float aY, float aVel, float ang, float aAccel, float max_speed);
+	~TMissile() {};// Формальный деструктор
 
 	virtual void Move(float ti);
 private:
-	float Accel;
+	// Класс расширяется ускорением и максимальной скоростью
+	float Accel, max_speed;
 };
 
-TMissile::TMissile(float aX, float aY, float aVel, float ang, float aAccel)
+// Конструктор
+TMissile::TMissile(float aX, float aY, float aVel, float ang, float aAccel, float amax_speed)
 {
 	StartX = aX;
 	StartY = aY;
 	Vel = aVel;
 	Ang = ang;
 	Accel = aAccel;
-	TargetType = Missile;
+	max_speed = amax_speed;
+	TargetType = target_type::Missile;
 
-	cout << "Missile";
+	cout << "Missile was creaated" << endl;
 }
 
-TMissile::~TMissile()
-{
-}
-
-
+// Метод движения 
 void TMissile::Move(float ti)
 {
-	Time = ti;
-	x = StartX - (Vel + Accel * (ti)) * cos(Ang) * (ti);
-	y = StartY - (Vel + Accel * (ti)) * sin(Ang) * (ti);
+	Time = ti; // Обновление времени(текущее)
+	float nVel = Vel + Accel * (ti); //Текущая скорость
+	// Ограничение на максимальную скорость
+	if (nVel > max_speed)
+		nVel = max_speed;
+
+	x = StartX - nVel * cos(Ang) * (ti); // Текущая координата X
+	y = StartY - nVel * sin(Ang) * (ti); // Текущая координата Y
 }
 
+
+//Класс РЛС
 class TRadar
 {
 public:
@@ -115,10 +135,10 @@ public:
 private:
 	float x, y, dt, MaxDistance;
 	int NTargets;
-	// ofstream fout;
 	string filename;
 };
 
+// Конструктор
 TRadar::TRadar(float aX, float aY, float aMaxDistance, float adt, int aN)
 {
 	x = aX;
@@ -127,81 +147,68 @@ TRadar::TRadar(float aX, float aY, float aMaxDistance, float adt, int aN)
 	dt = adt;
 	NTargets = aN;
 
+	// Имя файла логгирования
 	filename = "LR1.log.txt";
 
+	//Пересоздание(очистка файла)
 	ofstream fout(filename);
 	fout.close();
 
+	// Инициализация массива целей
 	targets = new TTarget*[NTargets];
-
-	/*for (int i = 0; i < NTargets; i++)
-	{
-		cout << "Enter type (1-Aircaraft; 2-Missile):";
-		int tmp;
-		float x, y;
-		cin >> tmp;
-		cout << "Start X and Y";
-		cin >> x, y;
-
-	}*/
-
 
 }
 
+// Деструктор
 TRadar::~TRadar()
 {
 	for (int i = 0; i < NTargets; i++)
-		delete targets[i];
-	delete targets;
+		delete targets[i]; // Очистка памяти на каждую цель
+	delete targets; // Очистка памяти для маасива целей
 }
 
+// Метод отслеживания
 void TRadar::Peleng(float t0, float tk)
 {
-	
+	// ОТкрытие файла на дозапись в конец
 	ofstream fout(filename, ios_base::app);
-	fout.setf(ios::fixed);
+	fout.setf(ios::fixed);// Установление правил вывода чисел с плавающей точкой
 
+	// Информация о временном интервале и шаге
 	fout << "Peling(" << t0 << "," << tk << ") dt=" << dt << endl;
-	//writeln(fout, 'Peling(', t0:4 : 4, ',', tk : 4 : 4, ')  dt=', dt : 4 : 4);
-	float t = t0;
 
-	while (t <= tk)
+	float t = t0; // Установка текущего времени на начальное
+
+	while (t <= tk) // По всему отслеживаемому промежутку
 	{
-		//writeln(fout, '--t=', t:3 : 3);
-		fout << "--t=" << t << endl;
+		fout << "--t=" << t << endl; // Текущее время
 
+		// Для каждой из отслеживаемых целей
 		for (int i = 0; i < NTargets; i++)
 		{
-			targets[i]->Move(t);
-			float dx = targets[i]->get_x() - x;
-			float dy = targets[i]->get_y() - y;
-			float d = sqrt(dx*dx + dy*dy);
+			targets[i]->Move(t); // Вычисляем положение в данный момент времени
+			float dx = targets[i]->get_x() - x; // Получаем расстояние до цели по оси X
+			float dy = targets[i]->get_y() - y; // Получаем расстояние до цели по оси Y
+			float d = sqrt(dx*dx + dy*dy); // Расстояние до цели
 
-
-			//write(fout, '----Target', i, ' ', targets[i] ^ .getTargetType, ' D=', d:4 : 4);
+			//Вывод информации о цели
 			fout << "----Target" << i << " " << targets[i]->getTargetType() << " D=" << d;
-			if (d <= MaxDistance) 
+			if (d <= MaxDistance) //Если радар видит цель
 			{
 				float e = atan2(dx, dy);
-				
-				//write(fout, '  eps=', e:1 : 4, ' rad = ', e * 180 / pi : 3 : 5);
-				fout << "  eps="; fout << e; fout << " rad = ";fout << e * 180 / 3.14;
+				fout << "  eps="; fout << e; fout << " rad = ";fout << e * 180.0 / 3.14;
 			}
 
-			if (d < 1) 
+			if (d < 1) //Если цель критически близко к РЛС - РЛС - уничтожена
 			{
 				fout << endl;
 				fout<< "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
-				// writeln(fout, '');
-				//write(fout, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+				cout << "LOST CONNECTION";
+				return;
 			}
-			fout << endl;
-			// writeln(fout, '');
-			
+			fout << endl;			
 		}
-		t += dt;
-		
-		//flush(fout);
+		t += dt; // Увеличиваем текущее время на шаг dt
 	}
 	fout.close();
 }
