@@ -14,7 +14,7 @@ public:
 	~TPosObject() {};
 	virtual void Move(double t) = 0 ;
 
-	// геттеры
+	// РіРµС‚С‚РµСЂС‹
 	double get_x() { return CurPosition.x; }
 	double get_y() { return CurPosition.y; }
 

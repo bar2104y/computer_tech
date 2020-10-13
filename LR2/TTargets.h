@@ -14,9 +14,9 @@ public:
 		Vel = vel;
 		Ang = ang;
 	}
-	~TTarget() {}; // Деструктор(формальный)
+	~TTarget() {}; // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ(С„РѕСЂРјР°Р»СЊРЅС‹Р№)
 
-	// Получение типа цели данного экземпляра
+	// РџРѕР»СѓС‡РµРЅРёРµ С‚РёРїР° С†РµР»Рё РґР°РЅРЅРѕРіРѕ СЌРєР·РµРјРїР»СЏСЂР°
 	string getTargetType()
 	{
 		if (TargetType == target_type::Missile)
@@ -27,7 +27,7 @@ public:
 			return "Unknown";
 	}
 
-	// Абстрактный метод движения, будет переобпределен в наследуемых классах
+	// РђР±СЃС‚СЂР°РєС‚РЅС‹Р№ РјРµС‚РѕРґ РґРІРёР¶РµРЅРёСЏ, Р±СѓРґРµС‚ РїРµСЂРµРѕР±РїСЂРµРґРµР»РµРЅ РІ РЅР°СЃР»РµРґСѓРµРјС‹С… РєР»Р°СЃСЃР°С…
 	virtual void Move(double t) {};
 
 	double get_Vel() { return Vel; }
@@ -47,20 +47,20 @@ public:
 		TargetType = target_type::Aircraft;
 	};
 	~TAircraft() {};
-	virtual void Move(double t); // метод движения
+	virtual void Move(double t); // РјРµС‚РѕРґ РґРІРёР¶РµРЅРёСЏ
 };
 
-// Метод движения
+// РњРµС‚РѕРґ РґРІРёР¶РµРЅРёСЏ
 void TAircraft::Move(double t)
 {
-	CurTime = t; // Обновление времени(устанавливается текущее)
+	CurTime = t; // РћР±РЅРѕРІР»РµРЅРёРµ РІСЂРµРјРµРЅРё(СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ С‚РµРєСѓС‰РµРµ)
 
-	CurPosition.x = InitPosition.x + Vel * cos(Ang) * (t); // Текущая координата X
-	CurPosition.y = InitPosition.y + Vel * sin(Ang) * (t); // екущая координата Y
+	CurPosition.x = InitPosition.x + Vel * cos(Ang) * (t); // РўРµРєСѓС‰Р°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р° X
+	CurPosition.y = InitPosition.y + Vel * sin(Ang) * (t); // РµРєСѓС‰Р°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р° Y
 }
 
 /********************************************************************/
-//Класс Ракеты, наследуется от базового класса цели
+//РљР»Р°СЃСЃ Р Р°РєРµС‚С‹, РЅР°СЃР»РµРґСѓРµС‚СЃСЏ РѕС‚ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР° С†РµР»Рё
 class TMissile : public TTarget
 {
 public:
@@ -76,12 +76,12 @@ protected:
 	double Accel;
 };
 
-// Метод движения 
+// РњРµС‚РѕРґ РґРІРёР¶РµРЅРёСЏ 
 void TMissile::Move(double t)
 {
-	CurTime = t; // Обновление времени(текущее)
-	double nVel = Vel + Accel * (t); //Текущая скорость
+	CurTime = t; // РћР±РЅРѕРІР»РµРЅРёРµ РІСЂРµРјРµРЅРё(С‚РµРєСѓС‰РµРµ)
+	double nVel = Vel + Accel * (t); //РўРµРєСѓС‰Р°СЏ СЃРєРѕСЂРѕСЃС‚СЊ
 
-	CurPosition.x = InitPosition.x + nVel * cos(Ang) * (t); // Текущая координата X
-	CurPosition.y = InitPosition.y + nVel * sin(Ang) * (t); // Текущая координата Y
+	CurPosition.x = InitPosition.x + nVel * cos(Ang) * (t); // РўРµРєСѓС‰Р°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р° X
+	CurPosition.y = InitPosition.y + nVel * sin(Ang) * (t); // РўРµРєСѓС‰Р°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р° Y
 }

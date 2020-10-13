@@ -11,7 +11,7 @@ namespace LR2 {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// РЎРІРѕРґРєР° РґР»СЏ MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -21,13 +21,13 @@ namespace LR2 {
 			InitializeComponent();
 			Sim = new TSimulator();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~MyForm()
 		{
@@ -86,14 +86,14 @@ namespace LR2 {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -130,7 +130,7 @@ namespace LR2 {
 			this->header->Name = L"header";
 			this->header->Size = System::Drawing::Size(350, 93);
 			this->header->TabIndex = 0;
-			this->header->Text = L"Лабораторная работа 2";
+			this->header->Text = L"Р›Р°Р±РѕСЂР°С‚РѕСЂРЅР°СЏ СЂР°Р±РѕС‚Р° 2";
 			this->header->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			this->header->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
@@ -142,7 +142,7 @@ namespace LR2 {
 			this->btn_create_obj->Name = L"btn_create_obj";
 			this->btn_create_obj->Size = System::Drawing::Size(353, 61);
 			this->btn_create_obj->TabIndex = 1;
-			this->btn_create_obj->Text = L"Создать объект";
+			this->btn_create_obj->Text = L"РЎРѕР·РґР°С‚СЊ РѕР±СЉРµРєС‚";
 			this->btn_create_obj->UseVisualStyleBackColor = true;
 			this->btn_create_obj->Click += gcnew System::EventHandler(this, &MyForm::btn_create_obj_Click);
 			// 
@@ -198,7 +198,7 @@ namespace LR2 {
 			this->lbl1->Name = L"lbl1";
 			this->lbl1->Size = System::Drawing::Size(92, 25);
 			this->lbl1->TabIndex = 6;
-			this->lbl1->Text = L"Объект";
+			this->lbl1->Text = L"РћР±СЉРµРєС‚";
 			this->lbl1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click_1);
 			// 
 			// btn_open_create_Target
@@ -209,7 +209,7 @@ namespace LR2 {
 			this->btn_open_create_Target->Name = L"btn_open_create_Target";
 			this->btn_open_create_Target->Size = System::Drawing::Size(353, 61);
 			this->btn_open_create_Target->TabIndex = 7;
-			this->btn_open_create_Target->Text = L"Моделировать";
+			this->btn_open_create_Target->Text = L"РњРѕРґРµР»РёСЂРѕРІР°С‚СЊ";
 			this->btn_open_create_Target->UseVisualStyleBackColor = true;
 			this->btn_open_create_Target->Click += gcnew System::EventHandler(this, &MyForm::btn_open_create_Target_Click);
 			// 
@@ -233,7 +233,7 @@ namespace LR2 {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(85, 20);
 			this->label1->TabIndex = 8;
-			this->label1->Text = L"Скорость:";
+			this->label1->Text = L"РЎРєРѕСЂРѕСЃС‚СЊ:";
 			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click_2);
 			// 
 			// course
@@ -255,7 +255,7 @@ namespace LR2 {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(53, 20);
 			this->label2->TabIndex = 10;
-			this->label2->Text = L"Курс:*";
+			this->label2->Text = L"РљСѓСЂСЃ:*";
 			// 
 			// acceleration
 			// 
@@ -276,7 +276,7 @@ namespace LR2 {
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(93, 20);
 			this->label3->TabIndex = 12;
-			this->label3->Text = L"Ускорение:";
+			this->label3->Text = L"РЈСЃРєРѕСЂРµРЅРёРµ:";
 			// 
 			// label4
 			// 
@@ -287,7 +287,7 @@ namespace LR2 {
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(120, 20);
 			this->label4->TabIndex = 14;
-			this->label4->Text = L"Тип объекта:";
+			this->label4->Text = L"РўРёРї РѕР±СЉРµРєС‚Р°:";
 			// 
 			// radioButton_CP
 			// 
@@ -297,7 +297,7 @@ namespace LR2 {
 			this->radioButton_CP->Size = System::Drawing::Size(40, 17);
 			this->radioButton_CP->TabIndex = 15;
 			this->radioButton_CP->TabStop = true;
-			this->radioButton_CP->Text = L"КЦ";
+			this->radioButton_CP->Text = L"РљР¦";
 			this->radioButton_CP->UseVisualStyleBackColor = true;
 			// 
 			// radioButton_RLS
@@ -308,7 +308,7 @@ namespace LR2 {
 			this->radioButton_RLS->Size = System::Drawing::Size(47, 17);
 			this->radioButton_RLS->TabIndex = 16;
 			this->radioButton_RLS->TabStop = true;
-			this->radioButton_RLS->Text = L"РЛС";
+			this->radioButton_RLS->Text = L"Р Р›РЎ";
 			this->radioButton_RLS->UseVisualStyleBackColor = true;
 			// 
 			// radioButton_Air
@@ -319,7 +319,7 @@ namespace LR2 {
 			this->radioButton_Air->Size = System::Drawing::Size(69, 17);
 			this->radioButton_Air->TabIndex = 17;
 			this->radioButton_Air->TabStop = true;
-			this->radioButton_Air->Text = L"Самолет";
+			this->radioButton_Air->Text = L"РЎР°РјРѕР»РµС‚";
 			this->radioButton_Air->UseVisualStyleBackColor = true;
 			// 
 			// radioButton_Miss
@@ -330,7 +330,7 @@ namespace LR2 {
 			this->radioButton_Miss->Size = System::Drawing::Size(61, 17);
 			this->radioButton_Miss->TabIndex = 18;
 			this->radioButton_Miss->TabStop = true;
-			this->radioButton_Miss->Text = L"Ракета";
+			this->radioButton_Miss->Text = L"Р Р°РєРµС‚Р°";
 			this->radioButton_Miss->UseVisualStyleBackColor = true;
 			// 
 			// safety_d
@@ -353,7 +353,7 @@ namespace LR2 {
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(185, 20);
 			this->label5->TabIndex = 21;
-			this->label5->Text = L"Безопасная дистанция";
+			this->label5->Text = L"Р‘РµР·РѕРїР°СЃРЅР°СЏ РґРёСЃС‚Р°РЅС†РёСЏ";
 			// 
 			// radius
 			// 
@@ -374,7 +374,7 @@ namespace LR2 {
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(170, 20);
 			this->label6->TabIndex = 19;
-			this->label6->Text = L"Радиус обнаружения:";
+			this->label6->Text = L"Р Р°РґРёСѓСЃ РѕР±РЅР°СЂСѓР¶РµРЅРёСЏ:";
 			// 
 			// MyForm
 			// 
@@ -459,21 +459,21 @@ private: System::Void btn_create_obj_Click(System::Object^ sender, System::Event
 		type = 3;
 	int res = Sim->CreateObject(type, params);
 	
-	String^ status = "Ошибок, вроде, не выявлено";
+	String^ status = "РћС€РёР±РѕРє, РІСЂРѕРґРµ, РЅРµ РІС‹СЏРІР»РµРЅРѕ";
 	switch (res)
 	{
 	case 0:
-		status = "Ошибок, вроде, не найдено";
+		status = "РћС€РёР±РѕРє, РІСЂРѕРґРµ, РЅРµ РЅР°Р№РґРµРЅРѕ";
 		break;
 	case 1:
-		status = "Непонятный тип объекта";
+		status = "РќРµРїРѕРЅСЏС‚РЅС‹Р№ С‚РёРї РѕР±СЉРµРєС‚Р°";
 		break;
 
 	case 2:
-		status = "Ошибка при создании самолета";
+		status = "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё СЃР°РјРѕР»РµС‚Р°";
 		break;
 	case 3:
-		status = "Ошибка при создании ракеты";
+		status = "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё СЂР°РєРµС‚С‹";
 		break;
 
 

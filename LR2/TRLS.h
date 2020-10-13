@@ -31,8 +31,8 @@ private:
 
 bool TRLS::Measure(TTarget target)
 {
-	double dx = target.get_x() - CurPosition.x; // Получаем расстояние до цели по оси X
-	double dy = target.get_y() - CurPosition.y; // Получаем расстояние до цели по оси Y
+	double dx = target.get_x() - CurPosition.x; // РџРѕР»СѓС‡Р°РµРј СЂР°СЃСЃС‚РѕСЏРЅРёРµ РґРѕ С†РµР»Рё РїРѕ РѕСЃРё X
+	double dy = target.get_y() - CurPosition.y; // РџРѕР»СѓС‡Р°РµРј СЂР°СЃСЃС‚РѕСЏРЅРёРµ РґРѕ С†РµР»Рё РїРѕ РѕСЃРё Y
 	cout << RMax << " dx:" <<dx <<" y:"<<dy <<" d:" << sqrt(dx * dx + dy * dy) << endl;
 	if (RMax > sqrt(dx * dx + dy * dy))
 		return true;
