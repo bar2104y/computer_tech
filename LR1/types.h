@@ -87,7 +87,7 @@ public:
 	~TMissile() {};// Формальный деструктор
 
 	virtual void Move(float ti);
-private:
+protected:
 	// Класс расширяется ускорением и максимальной скоростью
 	float Accel, max_speed;
 };
@@ -124,7 +124,7 @@ void TMissile::Move(float ti)
 class TRadar
 {
 public:
-	TRadar(float aX, float aY, float aMaxDistance, float adt, int aN);
+	TRadar(float aX, float aY, float aMaxDistance, float adt);
 	~TRadar();
 
 	TTarget** targets;
@@ -139,23 +139,47 @@ private:
 };
 
 // Конструктор
-TRadar::TRadar(float aX, float aY, float aMaxDistance, float adt, int aN)
+TRadar::TRadar(float aX, float aY, float aMaxDistance, float adt)
 {
 	x = aX;
 	y = aY;
 	MaxDistance = aMaxDistance;
 	dt = adt;
-	NTargets = aN;
+
+	ifstream input("input.txt");
+
+	input >> NTargets;
+
+	// Инициализация массива целей
+	targets = new TTarget * [NTargets];
+
+	for (int i = 0; i < NTargets; i++)
+	{
+		float ax, ay, avel, aang,aacc,alim;
+		int tmp;
+		input >> tmp;//тип 0 - неизвестный, ракета, самолет
+		input >> ax >> ay >> avel >> aang;
+		if (tmp == 1) {
+			input >> aacc >> alim;
+			targets[i] = new TMissile(ax, ay, avel,aang, aacc, alim);
+		}
+		else
+			targets[i] = new TAircraft(ax, ay, avel,aang);
+	
+	}
+	input.close();
+
+
 
 	// Имя файла логгирования
 	filename = "LR1.log.txt";
+
 
 	//Пересоздание(очистка файла)
 	ofstream fout(filename);
 	fout.close();
 
-	// Инициализация массива целей
-	targets = new TTarget*[NTargets];
+	
 
 }
 
@@ -195,8 +219,8 @@ void TRadar::Peleng(float t0, float tk)
 			fout << "----Target" << i << " " << targets[i]->getTargetType() << " D=" << d;
 			if (d <= MaxDistance) //Если радар видит цель
 			{
-				float e = atan2(dx, dy);
-				fout << "  eps="; fout << e; fout << " rad = ";fout << e * 180.0 / 3.14;
+				float e = atan2(dy, dx);
+				fout << "  rad="; fout << e; fout << " deg = ";fout << e * 180.0 / 3.14;
 			}
 
 			if (d < 1) //Если цель критически близко к РЛС - РЛС - уничтожена
