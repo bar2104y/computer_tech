@@ -10,7 +10,7 @@ using namespace System::Windows::Forms;
 
 using namespace std;
 
-//[STAThreadAttribute]
+[STAThreadAttribute]
 void main(/*array<String>* args*/) {
 	/*int i;
 	cout << "tst" << endl;
