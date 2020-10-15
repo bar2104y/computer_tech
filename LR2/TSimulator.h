@@ -45,6 +45,13 @@ TSimulator::TSimulator()
 	FT.close();
 }
 
+TSimulator::~TSimulator(){
+	delete RLS, CP;
+	for (unsigned int i = 0; i < CountTarget; i++)
+		delete Targets[i];
+	delete Targets;
+}
+
 double TSimulator::getCourse(double x, double y)
 {
 	return atan2(y, x);
