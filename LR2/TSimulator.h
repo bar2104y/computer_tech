@@ -68,7 +68,7 @@ int TSimulator::CreateObject(int type, double params[])
 
 		for (unsigned int i = 0; i < CountTarget-1; i++)
 			nTargets[i] = Targets[i];
-		//delete[] Targets;
+		delete[] Targets;
 
 		Targets = nTargets;
 
@@ -82,6 +82,7 @@ int TSimulator::CreateObject(int type, double params[])
 	case 0:
 		try
 		{
+			delete CP;
 			CP = new TCommandPost(params[0], params[1], 0, params[6]);
 		}
 		catch (const std::exception&)
@@ -92,6 +93,7 @@ int TSimulator::CreateObject(int type, double params[])
 	case 1:
 		try
 		{
+			delete RLS;
 			RLS = new TRLS(params[0], params[1], 0, params[5]);
 		}
 		catch (const std::exception&)
@@ -107,6 +109,7 @@ int TSimulator::CreateObject(int type, double params[])
 		}
 		catch (const std::exception&)
 		{
+			CountTarget--;
 			return 2;
 		}	
 		break;
@@ -117,6 +120,7 @@ int TSimulator::CreateObject(int type, double params[])
 		}
 		catch (const std::exception&)
 		{
+			CountTarget--;
 			return 3;
 		}
 		break;

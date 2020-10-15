@@ -1,11 +1,14 @@
 #pragma once
+//Типы целей
 enum class target_type { Unknown, Missile, Aircraft };
 
+//Координаты
 struct TPoint
 {
 	double x, y;
 };
 
+//Базовый класс объекта
 class TPosObject
 {
 public:
@@ -24,6 +27,8 @@ protected:
 
 };
 
+
+//Конструктор по умолчанию
 TPosObject::TPosObject() {
 	InitPosition.x = 0;
 	InitPosition.y = 0;

@@ -1040,4 +1040,3 @@ Mkfile.old
 dkms.conf
 
 *.log.txt
-*.vcxproj*

@@ -72,6 +72,7 @@ namespace LR2 {
 	private: System::Windows::Forms::TextBox^ radius;
 
 	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::Label^ label7;
 
 
 
@@ -97,6 +98,7 @@ namespace LR2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->header = (gcnew System::Windows::Forms::Label());
 			this->btn_create_obj = (gcnew System::Windows::Forms::Button());
 			this->y_coord = (gcnew System::Windows::Forms::TextBox());
@@ -120,6 +122,7 @@ namespace LR2 {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->radius = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// header
@@ -136,14 +139,16 @@ namespace LR2 {
 			// 
 			// btn_create_obj
 			// 
+			this->btn_create_obj->BackColor = System::Drawing::SystemColors::Highlight;
 			this->btn_create_obj->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->btn_create_obj->Location = System::Drawing::Point(17, 379);
+			this->btn_create_obj->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btn_create_obj->Location = System::Drawing::Point(17, 421);
 			this->btn_create_obj->Name = L"btn_create_obj";
 			this->btn_create_obj->Size = System::Drawing::Size(353, 61);
 			this->btn_create_obj->TabIndex = 1;
 			this->btn_create_obj->Text = L"Создать объект";
-			this->btn_create_obj->UseVisualStyleBackColor = true;
+			this->btn_create_obj->UseVisualStyleBackColor = false;
 			this->btn_create_obj->Click += gcnew System::EventHandler(this, &MyForm::btn_create_obj_Click);
 			// 
 			// y_coord
@@ -203,14 +208,16 @@ namespace LR2 {
 			// 
 			// btn_open_create_Target
 			// 
+			this->btn_open_create_Target->BackColor = System::Drawing::SystemColors::HotTrack;
 			this->btn_open_create_Target->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->btn_open_create_Target->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->btn_open_create_Target->Location = System::Drawing::Point(17, 488);
 			this->btn_open_create_Target->Name = L"btn_open_create_Target";
 			this->btn_open_create_Target->Size = System::Drawing::Size(353, 61);
 			this->btn_open_create_Target->TabIndex = 7;
 			this->btn_open_create_Target->Text = L"Моделировать";
-			this->btn_open_create_Target->UseVisualStyleBackColor = true;
+			this->btn_open_create_Target->UseVisualStyleBackColor = false;
 			this->btn_open_create_Target->Click += gcnew System::EventHandler(this, &MyForm::btn_open_create_Target_Click);
 			// 
 			// velocity
@@ -376,11 +383,25 @@ namespace LR2 {
 			this->label6->TabIndex = 19;
 			this->label6->Text = L"Радиус обнаружения:";
 			// 
+			// label7
+			// 
+			this->label7->AllowDrop = true;
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(19, 394);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(732, 17);
+			this->label7->TabIndex = 23;
+			this->label7->Text = L"* От горизонтальной оси против часовой стрелки. ВВедите отрицательный, чтобы напр"
+				L"авление на цель было рассчитано автоматически";
+			this->label7->UseCompatibleTextRendering = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->ClientSize = System::Drawing::Size(384, 561);
+			this->Controls->Add(this->label7);
 			this->Controls->Add(this->safety_d);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->radius);
@@ -404,9 +425,13 @@ namespace LR2 {
 			this->Controls->Add(this->lbl_RLS_x_coord);
 			this->Controls->Add(this->btn_create_obj);
 			this->Controls->Add(this->header);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
-			this->Text = L"s";
+			this->Text = L"Barichev\'s";
+			this->TransparencyKey = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -459,7 +484,7 @@ private: System::Void btn_create_obj_Click(System::Object^ sender, System::Event
 		type = 3;
 	int res = Sim->CreateObject(type, params);
 	
-	String^ status = "Ошибок, вроде, не выявлено";
+	String^ status = "Ошибок, вроде, не выявлено, объект создан";
 	switch (res)
 	{
 	case 0:
@@ -481,13 +506,16 @@ private: System::Void btn_create_obj_Click(System::Object^ sender, System::Event
 		
 		break;
 	}
-	MessageBox::Show("Status", status);
+	MessageBox::Show(status, "Статус:");
 }
 private: System::Void textBox1_TextChanged_1(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void btn_open_create_Target_Click(System::Object^ sender, System::EventArgs^ e) {
-	MessageBox::Show(Sim->get_CountTarget().ToString());
+	
 	Sim->Run();
+	MessageBox::Show("Моделирование завершено, лог записан на диск", "Статус:");
+}
+private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }

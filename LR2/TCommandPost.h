@@ -4,7 +4,10 @@
 class TCommandPost : public TPosObject
 {
 public:
-	TCommandPost() : TPosObject() {};
+	TCommandPost() : TPosObject()
+	{
+		SafetyDistance = 0;
+	};
 	TCommandPost(double x, double y, double t, double sd) : TPosObject(x, y, t)
 	{
 		SafetyDistance = sd;
