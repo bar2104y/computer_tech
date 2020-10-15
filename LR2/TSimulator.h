@@ -11,7 +11,7 @@ class TSimulator
 {
 public:
 	TSimulator();
-	~TSimulator() {};
+	~TSimulator() ;
 
 	virtual void Move(double t) {};
 	int CreateObject(int type, double params[]);
@@ -41,7 +41,7 @@ TSimulator::TSimulator()
 	t0 = 0.0; tk = 10.0;
 	dt = 0.1;
 
-	FT.open("result.txt");
+	FT.open("result.log.txt");
 	FT.close();
 }
 
@@ -134,7 +134,7 @@ int TSimulator::CreateObject(int type, double params[])
 int TSimulator::Run()
 
 {
-	FT.open("result.txt", ios_base::app);
+	FT.open("result.log.txt", ios_base::app);
 	FT.setf(ios::fixed);
 	FT << "Peling(" << t0 << "," << tk << ") dt=" << dt << endl;
 	
