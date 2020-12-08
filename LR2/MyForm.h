@@ -79,6 +79,18 @@ namespace LR2 {
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel2;
 	private: System::Windows::Forms::Label^ label9;
 	private: System::Windows::Forms::CheckedListBox^ checkedListBox1;
+	private: System::Windows::Forms::DataGridView^ dataGridView1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ type;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ X;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Y;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Vel;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Azimuth;
+
+
+
+
+
+
 
 
 
@@ -135,8 +147,15 @@ namespace LR2 {
 			this->flowLayoutPanel2 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->checkedListBox1 = (gcnew System::Windows::Forms::CheckedListBox());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->type = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->X = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Y = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Vel = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Azimuth = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->flowLayoutPanel1->SuspendLayout();
 			this->flowLayoutPanel2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// header
@@ -467,12 +486,51 @@ namespace LR2 {
 			this->checkedListBox1->TabIndex = 0;
 			this->checkedListBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::checkedListBox1_SelectedIndexChanged);
 			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(5) {
+				this->type, this->X,
+					this->Y, this->Vel, this->Azimuth
+			});
+			this->dataGridView1->Location = System::Drawing::Point(389, 206);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(570, 150);
+			this->dataGridView1->TabIndex = 26;
+			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
+			// 
+			// type
+			// 
+			this->type->HeaderText = L"Тип";
+			this->type->Name = L"type";
+			// 
+			// X
+			// 
+			this->X->HeaderText = L"X";
+			this->X->Name = L"X";
+			// 
+			// Y
+			// 
+			this->Y->HeaderText = L"Y";
+			this->Y->Name = L"Y";
+			// 
+			// Vel
+			// 
+			this->Vel->HeaderText = L"Скорость";
+			this->Vel->Name = L"Vel";
+			// 
+			// Azimuth
+			// 
+			this->Azimuth->HeaderText = L"Курс";
+			this->Azimuth->Name = L"Azimuth";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->ClientSize = System::Drawing::Size(971, 766);
+			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->flowLayoutPanel2);
 			this->Controls->Add(this->flowLayoutPanel1);
 			this->Controls->Add(this->label7);
@@ -510,6 +568,7 @@ namespace LR2 {
 			this->flowLayoutPanel1->PerformLayout();
 			this->flowLayoutPanel2->ResumeLayout(false);
 			this->flowLayoutPanel2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -600,6 +659,8 @@ private: System::Void label8_Click(System::Object^ sender, System::EventArgs^ e)
 private: System::Void label9_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void checkedListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 }
 };
 }
